@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+<head th:fragment="htmlhead">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>it Project. CRUD</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<nav th:fragment="navigation" class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">it Project</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link" th:href="@{/}">Домашняя страница</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="${(#mvc.url('UC#addUserForm')).build()}">Новый пользователь</a></li>
+                <li class="nav-item"><a class="nav-link" th:classappend="${#httpServletRequest.requestURI.contains('users')} ? 'active'" th:href="${(#mvc.url('UC#showAllUsers')).build()}">Список</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="mt-5">CRUD приложение</h1>
+            <p class="lead">Практическая задача</p>
+
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center"><a type="button" th:href="@{/users}" class="btn btn-secondary bg-secondary text-white">Вывести полный список пользователей</a></div>
+    </div>
+</div>
+
+<th:block th:fragment="footer">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:inline="javascript">
+        var messageExists = [[${flashMessage}]];
+        if (messageExists) {
+            $(".toast").toast("show");
+        }
+    </script>
+</th:block>
+</body>
+</html>

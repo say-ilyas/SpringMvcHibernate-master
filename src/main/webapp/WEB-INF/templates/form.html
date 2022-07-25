@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:with="lang=${#locale.language}" th:lang="${lang}">
+
+<head th:replace="layouts/main :: htmlhead"/>
+
+<body>
+
+<div th:replace="layouts/main :: navigation" />
+
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="mt-5">CRUD приложение</h1>
+            <p class="lead">Добавить нового пользователя</p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <form th:method="POST" th:action="@{/users}" th:object="${user}">
+        <input type="hidden" th:field="*{id}" th:value="*{getId()}">
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label for="name">Имя</label>
+                <input type="text" class="form-control" id="name" th:field="*{firstName}" th:value="*{getFirstName()}" placeholder="Enter user name" required>
+                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"/>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="last_name">Фамилия</label>
+                <input type="text" class="form-control" id="last_name" th:field="*{lastName}" th:value="*{getLastName()}" placeholder="Enter last name">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-6 mb-3">
+                <label for="email">E-mail</label>
+                <input type="text" class="form-control" id="email" th:field="*{email}" th:value="*{getEmail()}" placeholder="Enter email" required>
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="password">Пароль</label>
+                <input type="password" class="form-control" id="password" th:field="*{password}" th:value="*{getPassword()}" placeholder="Enter password" required>
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
+            </div>
+        </div>
+
+        <button class="btn btn-secondary" type="submit" th:text="*{getId()} ? 'Изменить' : 'Сохранить'"/>
+        <a class="btn btn-light border-dark" href="/users">Отмена</a>
+    </form>
+</div>
+
+<div th:replace="layouts/main :: footer"></div>
+</body>
+</html>
